@@ -8,6 +8,7 @@ export class FaceSnapsService{
 
 
  mySnap = {
+  id:1,
     title:'Desmond apprend Angular',
     description:'Ce premier cours vient de Open Class Room :-)', //Un texte aléatoire
     dateCreate: new Date(),
@@ -18,6 +19,7 @@ export class FaceSnapsService{
 
     
   mySnap2 = {
+    id:2,
     title:'Desmond apprend Angular',
     description:'Ce premier cours vient de Open Class Room :-)', //Un texte aléatoire
     dateCreate: new Date(),
@@ -26,6 +28,7 @@ export class FaceSnapsService{
   };
 
   mySnap3 = {
+    id:3,
     title:'Desmond apprend Angular',
     description:'Ce premier cours vient de Open Class Room :-)', //Un texte aléatoire
     dateCreate: new Date(),
@@ -35,6 +38,7 @@ export class FaceSnapsService{
   };
    
    mySnap4 = {
+    id:4,
     title:'Desmond apprend Angular',
     description:'Ce premier cours vient de Open Class Room :-)', //Un texte aléatoire
     dateCreate: new Date(),
@@ -47,9 +51,6 @@ export class FaceSnapsService{
     this.mySnap,
     this.mySnap2,
     this.mySnap3,
-    this.mySnap4,
-    this.mySnap2,
-    this.mySnap3,
     this.mySnap4
   ]
 
@@ -58,6 +59,49 @@ export class FaceSnapsService{
   {
     return this.SnapList;
   }
+
+getFaceSnapById ( facenapId: number): FaceSnap
+{
+  const faceSnap = this.SnapList.find(faceSnap => faceSnap?.id ===  facenapId)
+  if (!faceSnap)
+  {
+     
+    throw new Error("Le facesnap n'existe pas.");
+  }
+  else
+  {
+    return faceSnap;
+  }
+  
+}
+
+
+  snapFaceSnapById( facenapId: number, snapType : string): void{
+    
+    
+    //const faceSnap = this.SnapList.find(faceSnap => faceSnap?.id ===  facenapId);
+  
+    const faceSnap = this.getFaceSnapById(facenapId);
+
+    snapType === "snap" ?  faceSnap.snaps ++ :  faceSnap.snaps --;
+   
+
+
+  }
+
+/* 
+  unsnapFaceSnapById( facenapId: number): void{
+    const faceSnap = this.SnapList.find(faceSnap => faceSnap?.id ===  facenapId)
+    if (faceSnap)
+    {
+      faceSnap.snaps --;
+
+    }
+    else{
+      throw new Error("Le facesnap n'existe pas.");
+    }
+
+  } */
 
  
 }

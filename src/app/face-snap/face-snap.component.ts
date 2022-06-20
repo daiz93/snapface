@@ -1,6 +1,7 @@
 import { Component , OnInit, Input} from '@angular/core';
 
 import {FaceSnap} from '../models/face-snap.model';
+import { FaceSnapsService } from '../services/face-snaps.service';
 
 @Component({
   selector: 'app-face-snap',
@@ -11,6 +12,11 @@ import {FaceSnap} from '../models/face-snap.model';
 
 export class FaceSnapComponent  {
 
+constructor(private facesnapService:FaceSnapsService)
+{
+  
+}
+
 @Input() faceSnap!: FaceSnap;
 
   title!: string;
@@ -20,11 +26,13 @@ export class FaceSnapComponent  {
   imageUrl!:string;
   snaped!:boolean;
   buttonText!:string;
+  snipType!:'snap' |'unsnap';
 
 
   ngOnInit(){
 
     this.buttonText = 'Oh snap';
+    this.snipType ='snap'
   }
 
   onAddSnap()
@@ -39,11 +47,14 @@ export class FaceSnapComponent  {
     this.buttonText = 'Oh snap';
   }
 
+
   onSnaped()
   {
+     
     if (this.buttonText === 'Oh snap')
     {
-      this.onAddSnap();
+     // this.facesnapService.snapFaceSnapById(this.faceSnap.id)
+      this.snipType ='snap';
     
     }
     else
@@ -52,11 +63,12 @@ export class FaceSnapComponent  {
       var r=confirm("Voulez-vous supprimer votre snap ?");
       if (r===true)
       {
-        this.onUndoSnap();
+       // this.facesnapService.unsnapFaceSnapById(this.faceSnap.id);
+       this.snipType = 'unsnap'
       }
  
      // alert("Voulez-vous supprimer votre snap ?"? this.onUndoSnap() :this.onAddSnap());
-
+     this.facesnapService.snapFaceSnapById(this.faceSnap.id, this.snipType);
     }
     
   }
